@@ -5,15 +5,16 @@ import numpy as np
 import render as R
 
 src, out = sys.argv[1], sys.argv[2]
-T = 43.60   # on the phone with Danil; a frame where the author's old captions are not on screen
+T = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0   # B&W hook frame chosen by the author
 
 raw = subprocess.run(["ffmpeg", "-v", "error", "-i", src, "-ss", str(T), "-frames:v", "1", "-vf",
-                      "eq=contrast=1.08:saturation=1.1:gamma=0.97,curves=all='0/0 0.25/0.23 0.75/0.78 1/1'",
+                      "eq=contrast=1.06:saturation=1.07:gamma=0.98,curves=all='0/0 0.25/0.235 0.5/0.5 0.75/0.77 1/1'",
                       "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True, check=True).stdout
 frame = Image.frombuffer("RGB", (R.SW, R.SH), raw, "raw", "RGB", 0, 1)
-# no old captions in this frame, so the whole picture can be used (slight zoom toward the speaker)
-img = frame.resize((R.W, R.H), Image.LANCZOS, box=(40, 30, 700, 1203))
+# exactly the framing the reel shows at this moment (old captions never in frame)
+img = frame.resize((R.W, R.H), Image.LANCZOS, box=R.camera_box(T))
 img = img.filter(ImageFilter.UnsharpMask(2.2, 60, 2)).convert("RGBA")
+R.draw_rec(img, 0.1)   # REC dot always lit on the cover
 
 # darkening gradient bottom + light top for text legibility
 yy = np.linspace(0, 1, R.H)[:, None]
@@ -65,6 +66,6 @@ d.text((R.W / 2 - (b[0] + b[2]) / 2, sy + 43 - (b[1] + b[3]) / 2), sub, font=f2,
 trash = R.badge(R.RED, R.g_trash, 170)
 img.alpha_composite(trash.rotate(-12, Image.BICUBIC, expand=True), (790, 1010))
 warn = R.warn_sprite(150)
-img.alpha_composite(warn.rotate(10, Image.BICUBIC, expand=True), (90, 1035))
+img.alpha_composite(warn.rotate(10, Image.BICUBIC, expand=True), (770, 640))
 
 img.convert("RGB").save(out, quality=95)
