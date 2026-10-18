@@ -767,7 +767,7 @@ def build_events():
     B(48.20, 48.80, (L_, UY), BLUE, "arrows_h", arg=False, sfx="pop")
     B(50.50, 51.60, (C_, 520), BLUE, "refresh", sfx="swish")
     B(51.62, 52.08, (C_, 520), GREEN, "doc", arg=True, sfx="ding")
-    B(52.70, 53.25, (R_, 900), BLUE, "building", sfx="pop")
+    B(52.70, 53.25, (R_, UY), BLUE, "building", sfx="pop")
     B(53.98, 54.45, (R_, LY), RED, "cross", wiggle=True, sfx="error")
     B(55.28, 56.15, (L_, LY), GREEN, "shield", sfx="ding")
     B(56.98, 58.30, (R_, LY), YELLOW, "ruble", sfx="cash", tag=True)
