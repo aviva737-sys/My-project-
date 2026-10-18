@@ -133,7 +133,7 @@ NEG = {"мусорку", "попали", "плохо", "ошибках", "оши
 BIG = {"2": 1.45, "70%": 1.45, "переформировать": 0.86}
 # pages whose speaker is in close-up -> captions go above the head
 TOP_PAGES_FROM = [(37.1, 40.0), (53.9, 99)]
-CAP_BOTTOM_Y, CAP_TOP_Y = 1300, 420
+CAP_BOTTOM_Y, CAP_TOP_Y = 1450, 1530   # "top" pages = close-ups: sit a bit lower, under the chin
 FS = 92
 MAXW = 940
 
@@ -757,8 +757,8 @@ def build_events():
                   sfx_list=[(32.30, "pop"), (32.67, "tick"), (33.27, "tick")]))
     E.append(dict(kind="windows", mode="random", t0=35.80, t1=37.15, pos=(C_, 520), warn=36.90,
                   sfx_list=[(35.80, "pop")]))
-    B(37.87, 38.55, (C_, LY), RED, "cross", wiggle=True, sfx="error")
-    E.append(dict(kind="windows", mode="random", t0=39.35, t1=40.00, pos=(C_, LY), sfx_list=[(39.35, "pop")]))
+    B(37.87, 38.55, (R_, UY), RED, "cross", wiggle=True, sfx="error")
+    E.append(dict(kind="windows", mode="random", t0=39.35, t1=40.00, pos=(C_, 520), sfx_list=[(39.35, "pop")]))
     B(40.05, 41.05, (R_, UY), GREEN, "phone", rings=True, sfx="ring")
     B(42.55, 43.35, (L_, UY), RED, "trash", wiggle=True, sfx="pop")
     B(43.30, 43.80, (R_, UY), ORANGE, "warn", wiggle=True, sfx="error")
@@ -768,10 +768,10 @@ def build_events():
     B(50.50, 51.60, (C_, 520), BLUE, "refresh", sfx="swish")
     B(51.62, 52.08, (C_, 520), GREEN, "doc", arg=True, sfx="ding")
     B(52.70, 53.25, (R_, UY), BLUE, "building", sfx="pop")
-    B(53.98, 54.45, (R_, LY), RED, "cross", wiggle=True, sfx="error")
-    B(55.28, 56.15, (L_, LY), GREEN, "shield", sfx="ding")
-    B(56.98, 58.30, (R_, LY), YELLOW, "ruble", sfx="cash", tag=True)
-    B(58.37, 58.86, (L_, LY), BLUE, "bubble", sfx="pop")
+    B(53.98, 54.45, (R_, UY), RED, "cross", wiggle=True, sfx="error")
+    B(55.28, 56.15, (L_, UY), GREEN, "shield", sfx="ding")
+    B(56.98, 58.30, (R_, UY), YELLOW, "ruble", sfx="cash", tag=True)
+    B(58.37, 58.86, (L_, UY), BLUE, "bubble", sfx="pop")
     return E
 
 GLYPHS = {"phone": g_phone, "trash": g_trash, "magnifier": g_magnifier, "hammer": g_hammer,
